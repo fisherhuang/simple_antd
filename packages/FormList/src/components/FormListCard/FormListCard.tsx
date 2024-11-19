@@ -8,6 +8,7 @@ import invariant from "invariant";
 import { RemoveButtonComponent } from "../Common/RemoveButton";
 import { MoveButtonComponent } from "../Common/MoveButton";
 import { AddButtonComponent } from "../Common/AddButton";
+import {WithErrorBoundary} from "@src/common/withErrorBoundary";
 
 export type IFormListCardProps=IFormListProps&{
   cardProps?:CardProps
@@ -28,14 +29,14 @@ const FormListCard:React.FunctionComponent<IFormListCardProps> = (props) => {
           </Container>
         }}
         renderListItem={(listItemprops: FormListFieldData&FormListOperation&{index:number,getAddValue?:Function}) => {
-          const {add,remove,name,index,getAddValue}=listItemprops;
+          const {add,remove,move,name,index,getAddValue}=listItemprops;
        
           return (
               <Card
                 size="small"
                 actions={[
-                  <MoveButtonComponent type="text" size="small" style={{width:"100%",height:"100%",padding:0,margin:0}}></MoveButtonComponent>,
                   <Dropdown
+                  key={`add-button-${index}`}
                   getPopupContainer={(triggerNode:HTMLElement)=>{
                     return triggerNode.closest(".ant-card-actions")||document.body
                   }}
@@ -56,9 +57,32 @@ const FormListCard:React.FunctionComponent<IFormListCardProps> = (props) => {
                 }}>
                   <AddButtonComponent type="text" size="small" style={{width:"100%",height:"100%",padding:0,margin:0}}/>
                 </Dropdown>,
-                <Popconfirm title={"你确定要删除这条数据？"} onConfirm={()=>{remove(index)}}>
+                <Popconfirm 
+                key={`remove-button-${index}`} title={"你确定要删除这条数据？"} onConfirm={()=>{remove(index)}}>
                   <RemoveButtonComponent type="text" size="small" style={{width:"100%",height:"100%",padding:0,margin:0}} danger></RemoveButtonComponent>
-                </Popconfirm>
+                </Popconfirm>,
+                 <Dropdown
+                 key={`move-button-${index}`}
+                 getPopupContainer={(triggerNode:HTMLElement)=>{
+                   return triggerNode.closest(".ant-card-actions")||document.body
+                 }}
+                 menu={{
+                     items:[{
+                       label:"前面",
+                       key:"prev",
+                       onClick:()=>{
+                         move(index,index-1);
+                       }
+                     },{
+                       label:"后面",
+                       key:"next",
+                       onClick:()=>{
+                         move(index,index+1);
+                       }
+                   }]
+               }}>
+                    <MoveButtonComponent disabled={index===0} type="text" size="small" style={{width:"100%",height:"100%",padding:0,margin:0}} />
+               </Dropdown>       
                 ]}
                 {...cardProps||{}}
               >
@@ -72,4 +96,4 @@ const FormListCard:React.FunctionComponent<IFormListCardProps> = (props) => {
   );
 };
 
-export default FormListCard;
+export default WithErrorBoundary(FormListCard);

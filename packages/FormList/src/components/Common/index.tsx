@@ -150,7 +150,7 @@ Omit<IFormListProps, "items" | "children"> & {
                   </Suspense>
                 );
               }}
-              actionBar={() => {
+              actionBar={(props: any) => {
                 return (
                   <>
                     {addUtil(addable, {
@@ -163,6 +163,7 @@ Omit<IFormListProps, "items" | "children"> & {
                         addComponent={addComponent}
                         {...(addButtonProps || {})}
                         onClick={() => add(getAddValue?.())}
+                        {...props}
                       >
                         添加
                       </AddButtonComponent>

@@ -7,7 +7,7 @@ export const AddButtonComponent = (
   }
 ) => {
   const { addComponent:AddComponent,text='添加', ...rest } = props;
-  if (!AddComponent) return <Button {...rest}> {text} </Button>;
+  if (!AddComponent) return <Button icon={<>&#65122;</>} {...rest}> {text} </Button>;
 
   if (
     Object.prototype.toString.call(AddComponent) === "[object Function]"

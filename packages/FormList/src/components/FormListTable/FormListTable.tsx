@@ -8,6 +8,7 @@ import invariant from "invariant";
 import "@src/style/index.scss";
 import { RemoveButtonComponent } from "../Common/RemoveButton";
 import { AddButtonComponent } from "../Common/AddButton";
+import { MoveButtonComponent } from "../Common/MoveButton";
 
 export type IFormListTableProps = IFormListProps & {
   tableProps?: React.TableHTMLAttributes<HTMLTableElement>;
@@ -62,8 +63,8 @@ const FormListTable: React.FunctionComponent<IFormListTableProps> = (props) => {
               </tbody>
               <tfoot>
                 <tr>
-                  <td>
-                    <ActionBar />
+                  <td colSpan={items?.length + 1 + (showSerialNumber ? 1 : 0)}>
+                    <ActionBar style={{ width: "100%" }} type="text" />
                   </td>
                 </tr>
               </tfoot>
@@ -83,6 +84,7 @@ const FormListTable: React.FunctionComponent<IFormListTableProps> = (props) => {
         const {
           add,
           remove,
+          move,
           name,
           index,
           getAddValue,
@@ -94,7 +96,7 @@ const FormListTable: React.FunctionComponent<IFormListTableProps> = (props) => {
             {showSerialNumber && <td>{index + 1}</td>}
             {items.map((item: IFormItemProps, itemIndex: number) => {
               return (
-                <td>
+                <td key={`itemindex-${itemIndex}`}>
                   <ControlItem
                     key={`control-${itemIndex}`}
                     item={{
@@ -132,11 +134,6 @@ const FormListTable: React.FunctionComponent<IFormListTableProps> = (props) => {
                         label: "前面",
                         key: "prev",
                         onClick: () => {
-                          console.log(
-                            index,
-                            index == 0 ? index : index - 1,
-                            "--index == 0 ? index : index - 1 before"
-                          );
                           add(getAddValue?.(), index == 0 ? index : index - 1);
                         },
                       },
@@ -144,11 +141,6 @@ const FormListTable: React.FunctionComponent<IFormListTableProps> = (props) => {
                         label: "后面",
                         key: "next",
                         onClick: () => {
-                          console.log(
-                            index,
-                            index + 1,
-                            "after --index == 0 ? index : index - 1"
-                          );
                           add(getAddValue?.(), index + 1);
                         },
                       },
@@ -184,6 +176,48 @@ const FormListTable: React.FunctionComponent<IFormListTableProps> = (props) => {
                     danger
                   ></RemoveButtonComponent>
                 </Popconfirm>
+                <Dropdown
+                  getPopupContainer={(triggerNode: HTMLElement) => {
+                    return (
+                      triggerNode.closest(".ant-card-actions") || document.body
+                    );
+                  }}
+                  menu={{
+                    items: [
+                      {
+                        label: "前面",
+                        key: "prev",
+                        onClick: () => {
+                          console.log(
+                            index,
+                            index == 0 ? index : index - 1,
+                            "--index == 0 ? index : index - 1 before"
+                          );
+                          move(index, index - 1);
+                        },
+                      },
+                      {
+                        label: "后面",
+                        key: "next",
+                        onClick: () => {
+                          move(index, index + 1);
+                        },
+                      },
+                    ],
+                  }}
+                >
+                  <MoveButtonComponent
+                    type="text"
+                    disabled={index == 0}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      padding: 0,
+                      margin: 0,
+                    }}
+                    text={`添加`}
+                  />
+                </Dropdown>
               </div>
             </td>
           </>
