@@ -1,0 +1,30 @@
+.form-list-table {
+  border: 1px solid var(--form-list-table-border-color);
+  width: 100%;
+  td,
+  th {
+    padding: var(--form-list-table-col-padding);
+  }
+  thead {
+    tr {
+      th {
+        border-right: 1px solid var(--form-list-table-border-color);
+        border-bottom: 1px solid var(--form-list-table-border-color);
+        &:last-child {
+          border-right: 0;
+        }
+      }
+    }
+  }
+  tbody {
+    tr {
+      td {
+        border-right: 1px solid var(--form-list-table-border-color);
+        border-bottom: 1px solid var(--form-list-table-border-color);
+        &:last-child {
+          border-right: 0;
+        }
+      }
+    }
+  }
+}

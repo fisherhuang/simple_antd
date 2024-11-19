@@ -1,0 +1,14 @@
+{
+  "extends": ["./../../tsconfig.build.json"],
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "allowJs": true,
+    "jsx": "preserve",
+    "types": ["@types/react", "@types/react-dom", "@types/node"],
+    "paths": {
+      "@src/*": ["./src/*"]
+    }
+  },
+  "include": ["./src/*"],
+  "exclude": ["src/**/*.stories.tsx", "src/**/*.test.tsx"]
+}
