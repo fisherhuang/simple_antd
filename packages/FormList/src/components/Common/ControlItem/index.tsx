@@ -45,7 +45,7 @@ const ControlItem = ({ item = {}, itemIndex, fieldIndex, name }: any) => {
       />
     );
   }
-
+  console.log(item, "control item");
   let control = useMemo(() => {
     return (
       <ItemCondition

@@ -96,11 +96,7 @@ const CommonFormList = ({
   addButtonProps,
   addComponent,
   showSerialNumber = false,
-}: // removeButtonProps,
-// removeComponent,
-// moveButtonProps,
-// moveComponent,
-Omit<IFormListProps, "items" | "children"> & {
+}: Omit<IFormListProps, "items" | "children"> & {
   pageSize?: number;
   rowHeight?: number;
 } & Pick<FormItemProps, "shouldUpdate">) => {

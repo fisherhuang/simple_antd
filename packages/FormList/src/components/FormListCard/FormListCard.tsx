@@ -17,7 +17,7 @@ export type IFormListCardProps=IFormListProps&{
 const FormListCard:React.FunctionComponent<IFormListCardProps> = (props) => {
   const { items = [] as IFormItemProps[],renderListItem,cardProps,container:Container, ...restPpops } = props;
 
-  invariant(items.length>0,"items不能为空")
+  invariant(items.length>0,"items不能为空");
 
   return (
       <CommonFormList

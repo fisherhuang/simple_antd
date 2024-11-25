@@ -32,7 +32,7 @@ const ControlItem = ({
       <Form.Item shouldUpdate={_shouldUpdate} noStyle>
         {() => {
           return (
-            hiddenUtil(hidden, {
+            !hiddenUtil(hidden, {
               name,
               formInstance: formInstance,
               currentIndex: index,
