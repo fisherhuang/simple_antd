@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useState } from "react";
+import React, { memo, useMemo } from "react";
 import { Form, Input } from "antd";
 import { FormListCard } from "@src/components/FormListCard";
 import ItemCondition from "./ItemCondition";
@@ -45,7 +45,7 @@ const ControlItem = ({ item = {}, itemIndex, fieldIndex, name }: any) => {
       />
     );
   }
-  console.log(item, "control item");
+
   let control = useMemo(() => {
     return (
       <ItemCondition

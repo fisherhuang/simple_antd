@@ -3,14 +3,16 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "allowJs": true,
-    "noUnusedLocals": false,
+    "noUnusedLocals": true,
     "allowUnusedLabels": true,
+
     "jsx": "preserve",
     "types": ["@types/react", "@types/react-dom", "@types/node"],
     "paths": {
       "@src/*": ["./src/*"]
     },
     "outDir": "./dist/types",
+    "declaration": true,
     "noEmit": true
   },
   "include": ["./src/*"],

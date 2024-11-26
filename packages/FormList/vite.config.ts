@@ -8,6 +8,8 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: `@import "./src/style/base.scss";`,
+        silenceDeprecations: ["legacy-js-api"],
+        silenceDeprecationsL: ["@import"],
       },
     },
   },
@@ -16,6 +18,7 @@ export default defineConfig({
     ReactPlugin(),
     dts({
       outDir: "dist/types",
+      rollupTypes: true,
     }),
   ],
   resolve: {

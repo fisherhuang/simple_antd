@@ -1,15 +1,15 @@
-import React, { useEffect, useMemo, useRef, Suspense } from "react";
-import { Button, Form, Spin } from "antd";
-import { addUtil } from "@src/common/util";
+import React, { Suspense } from "react";
+import { Form, Spin } from "antd";
+import { addUtil, removeUtil } from "@src/common/util";
 import type { IFormListProps } from "@src/types";
-import type { ButtonProps, FormItemProps, FormListOperation } from "antd";
-import { VariableSizeList as List } from "react-window";
-import AutoSizer from "react-virtualized-auto-sizer";
+import type { FormItemProps, FormListOperation } from "antd";
+// import { VariableSizeList as List } from "react-window";
+// import AutoSizer from "react-virtualized-auto-sizer";
 
 import FormListItem from "./ControlItem/formListItem";
 import { AddButtonComponent } from "./AddButton";
-import { RemoveButtonComponent } from "./RemoveButton";
-import { MoveButtonComponent } from "./MoveButton";
+// import { RemoveButtonComponent } from "./RemoveButton";
+// import { MoveButtonComponent } from "./MoveButton";
 
 // const FormListItem = React.lazy(() => import("./ControlItem/formListItem"));
 
@@ -134,8 +134,27 @@ const CommonFormList = ({
                           remove={remove}
                           move={move}
                           add={add}
+                          addable={
+                            max === fields.length
+                              ? false
+                              : addUtil(addable, {
+                                  formInstance,
+                                  name,
+                                  min,
+                                  max,
+                                })
+                          }
                           getAddValue={getAddValue}
-                          removable={removable}
+                          removable={
+                            min === fields.length
+                              ? false
+                              : removeUtil(removable, {
+                                  formInstance,
+                                  name,
+                                  min,
+                                  max,
+                                })
+                          }
                           editable={editable}
                           as={as}
                           index={index}
@@ -147,6 +166,8 @@ const CommonFormList = ({
                 );
               }}
               actionBar={(props: any) => {
+                if (max == fields.length) return false;
+
                 return (
                   <>
                     {addUtil(addable, {

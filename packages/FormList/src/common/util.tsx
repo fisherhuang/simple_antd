@@ -51,7 +51,7 @@ export const removeUtil = (
   removable: boolean | Function | undefined,
   { name, formInstance, currentIndex }: IUtilOptions
 ) => {
-  if (typeof removable == "undefined") return false;
+  if (typeof removable == "undefined") return true;
 
   if (typeof removable == "boolean") return removable;
 

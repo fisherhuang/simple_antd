@@ -1,10 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 
 const FormListItem = ({
   ListItem,
   remove,
   move,
   add,
+  addable,
   getAddValue,
   removable,
   editable,
@@ -15,7 +16,7 @@ const FormListItem = ({
 }: any) => {
   const itemRef = useRef<HTMLDivElement | HTMLTableColElement>(null);
 
-  const { name, fieldKey } = field;
+  const { name } = field;
 
   return (
     <AsComponent ref={itemRef}>
@@ -30,6 +31,7 @@ const FormListItem = ({
         removable={removable}
         editable={editable}
         showSerialNumber={showSerialNumber}
+        addable={addable}
       ></ListItem>
     </AsComponent>
   );
